@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import "./App.css";
-import quotes from "./quote";
 
 const colors = [
   "#667eea",
@@ -20,13 +20,12 @@ const fonts = [
 ];
 
 function App() {
-  const getRandomQuote = () =>
-    quotes[Math.floor(Math.random() * quotes.length)];
+  const [quote, setQuote] = useState({ content: "", author: "" });
+
   const getRandomColor = () =>
     colors[Math.floor(Math.random() * colors.length)];
   const getRandomFont = () => fonts[Math.floor(Math.random() * fonts.length)];
 
-  const [quote, setQuote] = useState(getRandomQuote());
   const [theme, setTheme] = useState({
     color: getRandomColor(),
     font: getRandomFont(),
@@ -37,8 +36,25 @@ function App() {
     document.body.style.transition = "background-color 0.6s ease";
   }, [theme]);
 
+  const fetchQuote = async () => {
+    try {
+      const response = await axios.get("https://dummyjson.com/quotes/random");
+      setQuote({
+        content: response.data.quote,
+        author: response.data.author,
+      });
+    } catch (error) {
+      console.error("Error fetching quote:", error);
+      setQuote({ content: "Keep pushing forward.", author: "Unknown" });
+    }
+  };
+
+  useEffect(() => {
+    fetchQuote();
+  }, []);
+
   const handleNewQuote = () => {
-    setQuote(getRandomQuote());
+    fetchQuote();
     setTheme({
       color: getRandomColor(),
       font: getRandomFont(),
@@ -65,7 +81,7 @@ function App() {
         >
           <path d="M9 17H5l4-12h4zm10 0h-4l4-12h4z" />
         </svg>
-        {quote.text}
+        {quote.content}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -84,7 +100,7 @@ function App() {
         <a
           id="tweet-quote"
           href={`https://twitter.com/intent/tweet?text="${encodeURIComponent(
-            quote.text
+            quote.content
           )}" - ${encodeURIComponent(quote.author)}`}
           target="_blank"
           rel="noopener noreferrer"

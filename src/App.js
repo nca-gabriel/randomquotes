@@ -78,7 +78,7 @@ function App() {
         </svg>
       </span>
 
-      <span id="author">{quote.author}</span>
+      <span id="author">- {quote.author}</span>
 
       <section id="buttons">
         <a

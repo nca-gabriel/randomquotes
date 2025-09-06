@@ -12,7 +12,8 @@
   <a href="#features">Features</a> •
   <a href="#tech-stack">Tech Stack</a> •
   <a href="#installation">Installation</a> •
-  <a href="#usage">Usage</a>
+  <a href="#usage">Usage</a> •
+  <a href="#credits">Credits</a>
 </p>
 
 <img src="./public/ss.png" alt="RandomQuotes App Screenshot" align="center" width="auto" height="auto">
@@ -60,4 +61,8 @@ Start the development server:
 ```bash
 npm run dev
 ```
+
+## Credits 
+[Surprise box icon](https://www.flaticon.com/free-icon/surprise-box_6662934) created by [noomtah](https://www.flaticon.com/authors/noomtah) — [Flaticon](https://www.flaticon.com/)
+
 
